@@ -23,9 +23,9 @@ class GeneralConfigurationTest extends TestCase
             'warning'
         ];
 
-        config()->set('larahawk.logLevelsWatched', $expected);
+        config()->set('larawatch.logLevelsWatched', $expected);
 
-        $actual = config('larahawk.logLevelsWatched');
+        $actual = config('larawatch.logLevelsWatched');
 
         $this->assertEquals($expected, $actual);
     }

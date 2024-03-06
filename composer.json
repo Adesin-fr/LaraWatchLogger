@@ -1,18 +1,19 @@
 {
-    "name": "larahawk/watcher",
-    "description": "Listen for Laravel exceptions and log events then report them back to a Larahawk account",
+    "name": "larawatch/logger",
+    "description": "Redirects your log events to your LaraWatchPro account",
     "license": "MIT",
     "authors": [
         {
             "name": "Ludovic LEMARINEL",
             "email": "ludovic@adesin.fr",
-            "homepage": "https://github.com/Adesin-fr/LaraWatchPro",
+            "homepage": "https://github.com/Adesin-fr/LaraWatchLogger",
             "role": "Developer"
         }
     ],
     "require": {
         "php": ">=7.0",
-        "guzzlehttp/guzzle": "~6.0"
+        "guzzlehttp/guzzle": "~6.0",
+        "illuminate/support": "^6.0|^7.0|^8.0"
     },
     "require-dev": {
         "phpunit/phpunit": "6.2|^7.0|^8.3",
@@ -30,12 +31,5 @@
     },
     "scripts": {
         "test": "vendor/bin/phpunit"
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Larawatch\\Logger\\LarawatchServiceProvider"
-            ]
-        }
     }
 }

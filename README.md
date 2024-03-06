@@ -4,18 +4,21 @@ This package has been heavily inspired by the _Larahawk Watcher_ package. Since 
 
 This watcher package listens for exceptions and log events from your Laravel application and reports them back to your LaraWatchPro account.
 
-## Features
-
-- Automatically reports unhandled exceptions
-- Reports helpful log events by default
-- Attaches user, browser, and OS information to each event
-
 ## Installation
 
 1. Create a LarawatchPro account, or host your own server ! 
-2. Install this package using `composer require adesin-fr/larawatchLogger`
-3. Add your project's API key and server URL to the application's `.env` file
-4. Make any desired adjustments to the watcher using the package's config file
+2. Install this package using `composer require adesin-fr/LarawatchLogger`
+3. Make any desired adjustments to the watcher using the package's config file
+4. Declare the logger in your `config/logging.php` file :
+   ```
+   'channels' => [
+        'larawatch' => [
+            'driver' => 'custom',
+            'via' => LarawatchLogger\Logger::class,
+        ],
+   ```
+5. Add your project's API key and server URL to the application's `.env` file.
+6. Change your logger in `.env` to `LOG_CHANNEL=larawatch`
 
 ## Contributing and Support
 
@@ -23,4 +26,4 @@ Feel free to [submit any issues](https://github.com/adesin-fr/larawatchLogger/is
 
 ## License
 
-The MIT License (MIT). See [LICENSE.md](https://github.com/larahawk/watcher/blob/master/LICENSE.md) for more details.
+The MIT License (MIT). See [LICENSE.md](https://github.com/larawatch/watcher/blob/master/LICENSE.md) for more details.

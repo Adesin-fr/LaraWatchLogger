@@ -23,7 +23,7 @@ class SendLogTest extends TestCase
             'warning'
         ];
 
-        config()->set('larahawk.logLevelsWatched', $logLevelsWatched);
+        config()->set('larawatch.logLevelsWatched', $logLevelsWatched);
     }
 
     /** @test */

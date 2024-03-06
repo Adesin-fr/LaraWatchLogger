@@ -7,7 +7,7 @@ return [
     | Log Levels Watched
     |--------------------------------------------------------------------------
     |
-    | An array containing the log levels watched and reported to Larahawk.
+    | An array containing the log levels watched and reported to larawatch.
     | By default this includes emergency, alert, critical, error, and warning.
     |
     */
