@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Larawatch\Logger;
+namespace Larawatch;
 use Monolog\Logger as MonologLogger;
 
 class Logger
