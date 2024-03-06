@@ -7,7 +7,7 @@ This watcher package listens for exceptions and log events from your Laravel app
 ## Installation
 
 1. Create a LarawatchPro account, or host your own server ! 
-2. Install this package using `composer require adesin-fr/LarawatchLogger`
+2. Install this package using `composer require larawatchpro/logger`
 3. Make any desired adjustments to the watcher using the package's config file
 4. Declare the logger in your `config/logging.php` file :
    ```

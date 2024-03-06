@@ -1,5 +1,5 @@
 {
-    "name": "larawatch/logger",
+    "name": "larawatchpro/logger",
     "description": "Redirects your log events to your LaraWatchPro account",
     "license": "MIT",
     "authors": [
