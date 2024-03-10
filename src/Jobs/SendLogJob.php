@@ -37,7 +37,6 @@ class SendLogJob implements ShouldQueue
         $payload = [
             'level' => $this->level,
             'message' => $this->message,
-            'context' => $this->context,
             'userId' => $this->context['userId'] ?? 0,
             'file' => isset($this->context['exception']) ? $this->context['exception']->getFile() : null,
             'line' => isset($this->context['exception']) ? $this->context['exception']->getLine() : null,
