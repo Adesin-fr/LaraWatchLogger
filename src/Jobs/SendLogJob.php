@@ -29,14 +29,14 @@ class SendLogJob implements ShouldQueue
             return false;
         }
 
-        $payload = array(
+        $payload = [
             'level' => $this->message->level,
             'message' => $this->message->message,
             'userId' => $this->message->context['userId'] ?? 0,
             'file' => isset($this->message->context['exception']) ? $this->message->context['exception']->getFile() : null,
             'line' => isset($this->message->context['exception']) ? $this->message->context['exception']->getLine() : null,
             'trace' => isset($this->message->context['exception']) ? $this->message->context['exception']->getTraceAsString() : null
-        );
+        ];
 
         if(defined('PHPUNIT_TESTS_RUNNING') && PHPUNIT_TESTS_RUNNING) {
             return $payload;
