@@ -38,10 +38,10 @@ class SendLogJob implements ShouldQueue
             'level' => $this->level,
             'message' => $this->message,
             'context' => $this->context,
-//            'userId' => $this->message->context['userId'] ?? 0,
-//            'file' => isset($this->message->context['exception']) ? $this->message->context['exception']->getFile() : null,
-//            'line' => isset($this->message->context['exception']) ? $this->message->context['exception']->getLine() : null,
-//            'trace' => isset($this->message->context['exception']) ? $this->message->context['exception']->getTraceAsString() : null
+            'userId' => $this->context['userId'] ?? 0,
+            'file' => isset($this->context['exception']) ? $this->context['exception']->getFile() : null,
+            'line' => isset($this->context['exception']) ? $this->context['exception']->getLine() : null,
+            'trace' => isset($this->context['exception']) ? $this->context['exception']->getTraceAsString() : null
         ];
 
         if(defined('PHPUNIT_TESTS_RUNNING') && PHPUNIT_TESTS_RUNNING) {
