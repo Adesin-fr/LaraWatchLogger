@@ -11,9 +11,13 @@ class LarawatchMessageLoggedListener
     {
     }
 
-    public function handle(MessageLogged $message)
+    public function handle(MessageLogged $logEntry)
     {
-        SendLogJob::dispatch($message, app()->request);
+        SendLogJob::dispatch([
+            $logEntry->level,
+            $logEntry->message,
+            $logEntry->context
+        ]);
     }
 
 }

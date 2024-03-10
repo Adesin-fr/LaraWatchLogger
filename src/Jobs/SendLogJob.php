@@ -17,12 +17,10 @@ class SendLogJob implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     private $message;
-    private $request;
 
-    public function __construct(MessageLogged $message, Request $request)
+    public function __construct(MessageLogged $message)
     {
         $this->message = $message;
-        $this->request = $request;
     }
 
     public function handle()
@@ -34,11 +32,6 @@ class SendLogJob implements ShouldQueue
         $payload = array(
             'level' => $this->message->level,
             'message' => $this->message->message,
-            'route' => $this->request->path(),
-            'fullUrl' => $this->request->fullUrl(),
-            'ip' => $this->request->ip(),
-            'method' => $this->request->method(),
-            'userAgent' => $this->request->header('User-Agent'),
             'userId' => $this->message->context['userId'] ?? 0,
             'file' => isset($this->message->context['exception']) ? $this->message->context['exception']->getFile() : null,
             'line' => isset($this->message->context['exception']) ? $this->message->context['exception']->getLine() : null,
