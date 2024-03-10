@@ -10,8 +10,6 @@ class LarawatchServiceProvider extends IlluminateServiceProvider
 
     public function boot()
     {
-        Log::info("Package booted");
-
         $configPath = __DIR__ . '/../config/larawatch.php';
         $this->publishes([$configPath => config_path('larawatch.php')], 'config');
 
@@ -22,7 +20,6 @@ class LarawatchServiceProvider extends IlluminateServiceProvider
         $configPath = __DIR__ . '/../config/larawatch.php';
         $this->mergeConfigFrom($configPath, 'larawatch');
 
-        Log::info("Package registered");
         $this->app->register(LarawatchEventServiceProvider::class);
     }
 
