@@ -66,6 +66,8 @@ class SendLogJob implements ShouldQueue
             dd($e);
         }
 
+        dd("DONE");
+
         return true;
     }
 }
