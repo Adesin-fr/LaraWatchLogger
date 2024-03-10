@@ -18,11 +18,13 @@ class SendLogJob implements ShouldQueue
 
     private $message;
     private $level;
+    private $context;
 
-    public function __construct(string $level, array $message)
+    public function __construct(string $level, string $message, array $context)
     {
         $this->level = $level;
         $this->message = $message;
+        $this->context = $context;
     }
 
     public function handle()
