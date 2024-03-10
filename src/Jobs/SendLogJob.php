@@ -17,25 +17,28 @@ class SendLogJob implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     private $message;
+    private $level;
 
-    public function __construct(MessageLogged $message)
+    public function __construct(string $level, array $message)
     {
+        $this->level = $level;
         $this->message = $message;
     }
 
     public function handle()
     {
-        if(!in_array($this->message->level, config('larawatch.logLevelsWatched'))) {
+        if(!in_array($this->level, config('larawatch.logLevelsWatched'))) {
             return false;
         }
 
+
         $payload = [
-            'level' => $this->message->level,
-            'message' => $this->message->message,
-            'userId' => $this->message->context['userId'] ?? 0,
-            'file' => isset($this->message->context['exception']) ? $this->message->context['exception']->getFile() : null,
-            'line' => isset($this->message->context['exception']) ? $this->message->context['exception']->getLine() : null,
-            'trace' => isset($this->message->context['exception']) ? $this->message->context['exception']->getTraceAsString() : null
+            'level' => $this->level,
+            'message' => $this->message,
+//            'userId' => $this->message->context['userId'] ?? 0,
+//            'file' => isset($this->message->context['exception']) ? $this->message->context['exception']->getFile() : null,
+//            'line' => isset($this->message->context['exception']) ? $this->message->context['exception']->getLine() : null,
+//            'trace' => isset($this->message->context['exception']) ? $this->message->context['exception']->getTraceAsString() : null
         ];
 
         if(defined('PHPUNIT_TESTS_RUNNING') && PHPUNIT_TESTS_RUNNING) {
