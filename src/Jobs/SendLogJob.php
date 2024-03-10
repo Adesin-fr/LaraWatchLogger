@@ -1,6 +1,6 @@
 <?php
 
-namespace Larawatch\Logger\Jobs;
+namespace Larawatch\Jobs;
 
 use Exception;
 use GuzzleHttp\Client;
@@ -39,7 +39,7 @@ class SendLogJob implements ShouldQueue
             'ip' => $this->request->ip(),
             'method' => $this->request->method(),
             'userAgent' => $this->request->header('User-Agent'),
-            'userId' => isset($this->message->context['userId']) ? $this->message->context['userId'] : 0,
+            'userId' => $this->message->context['userId'] ?? 0,
             'file' => isset($this->message->context['exception']) ? $this->message->context['exception']->getFile() : null,
             'line' => isset($this->message->context['exception']) ? $this->message->context['exception']->getLine() : null,
             'trace' => isset($this->message->context['exception']) ? $this->message->context['exception']->getTraceAsString() : null
