@@ -74,8 +74,6 @@ class SendLogJob implements ShouldQueue
 
     private function getCodeExcerpt(string $file, $line)
     {
-        $line--;
-
         if (null !== ($contents = file_get_contents($file))) {
             $lines = explode("\n", $contents);
 
@@ -85,7 +83,7 @@ class SendLogJob implements ShouldQueue
                 $start = 0;
             }
 
-            return array_slice($lines, $start, $start + 7, true);
+            return array_slice($lines, $start,  10, true);
         }
 
         return [];
