@@ -2,7 +2,7 @@
 
 namespace Larawatch\Logger\Tests;
 
-use Larawatch\Logger\LarawatchServiceProvider;
+use Larawatch\LarawatchServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra

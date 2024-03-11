@@ -72,8 +72,10 @@ class SendLogJob implements ShouldQueue
         return true;
     }
 
-    private function getCodeExcerpt(string $file, $line): array
+    private function getCodeExcerpt(string $file, $line)
     {
+        $line--;
+
         if (null !== ($contents = file_get_contents($file))) {
             $lines = explode("\n", $contents);
 

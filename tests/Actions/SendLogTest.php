@@ -6,7 +6,7 @@ use Larawatch\Logger\Tests\TestCase;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Log\Events\MessageLogged;
-use Larawatch\Logger\Jobs\SendLogJob;
+use Larawatch\Jobs\SendLogJob;
 
 class SendLogTest extends TestCase
 {
@@ -44,7 +44,7 @@ class SendLogTest extends TestCase
             'trace' => null
         ];
 
-        $actual = SendLogJob::dispatch(new MessageLogged('alert',  'This is an alert test!'), app()->request);
+        $actual = SendLogJob::dispatch('alert',  'This is an alert test!');
 
         unset($actual['userAgent']);
 
@@ -58,7 +58,7 @@ class SendLogTest extends TestCase
 
         $expected = false;
 
-        $actual = SendLogJob::dispatch(new MessageLogged('debug',  'This is a debug test!'), app()->request);
+        $actual = SendLogJob::dispatch('debug',  'This is a debug test!');
 
         $this->assertEquals($expected, $actual);
     }
