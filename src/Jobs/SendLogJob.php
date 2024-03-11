@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Log\Events\MessageLogged;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use InvalidArgumentException;
 
 class SendLogJob implements ShouldQueue
 {
@@ -29,7 +30,7 @@ class SendLogJob implements ShouldQueue
 
     public function handle()
     {
-        if(!in_array($this->level, config('larawatch.logLevelsWatched'))) {
+        if (!in_array($this->level, config('larawatch.logLevelsWatched'))) {
             return false;
         }
 
@@ -40,10 +41,14 @@ class SendLogJob implements ShouldQueue
             'userId' => $this->context['userId'] ?? 0,
             'file' => isset($this->context['exception']) ? $this->context['exception']->getFile() : null,
             'line' => isset($this->context['exception']) ? $this->context['exception']->getLine() : null,
-            'trace' => isset($this->context['exception']) ? $this->context['exception']->getTraceAsString() : null
+            'trace' => isset($this->context['exception']) ? $this->context['exception']->getTraceAsString() : null,
         ];
 
-        if(defined('PHPUNIT_TESTS_RUNNING') && PHPUNIT_TESTS_RUNNING) {
+        if ($payload['file'] && $payload['line']) {
+            $payload['codeExcerpt'] = $this->getCodeExcerpt($payload['file'], $payload['line']);
+        }
+
+        if (defined('PHPUNIT_TESTS_RUNNING') && PHPUNIT_TESTS_RUNNING) {
             return $payload;
         }
 
@@ -61,9 +66,28 @@ class SendLogJob implements ShouldQueue
                     'Authorization' => config('larawatch.api_key')
                 ]
             ]);
-        } catch(Exception $e) {
+        } catch (Exception $e) {
         }
 
         return true;
     }
+
+    private function getCodeExcerpt(string $file, $line): array
+    {
+        if (null !== ($contents = file_get_contents($file))) {
+            $lines = explode("\n", $contents);
+
+            $start = (int)$line - 2;
+
+            if ($start < 0) {
+                $start = 0;
+            }
+
+            return array_slice($lines, $start, $start + 7, true);
+        }
+
+        return [];
+    }
+
+
 }
