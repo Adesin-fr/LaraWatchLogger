@@ -40,7 +40,7 @@ class SendLogJob implements ShouldQueue
             'message' => $this->message,
             'userId' => $this->context['userId'] ?? 0,
             'file' => isset($this->context['exception']) ? $this->context['exception']->getFile() : null,
-            'line' => isset($this->context['exception']) ? $this->context['exception']->getLine() : null,
+            'line' => isset($this->context['exception']) ? $this->context['exception']->getLine() - 1 : null,
             'trace' => isset($this->context['exception']) ? $this->context['exception']->getTraceAsString() : null,
         ];
 
@@ -83,7 +83,7 @@ class SendLogJob implements ShouldQueue
                 $start = 0;
             }
 
-            return array_slice($lines, $start,  10, true);
+            return array_slice($lines, $start, 10, true);
         }
 
         return [];
